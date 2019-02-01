@@ -94,7 +94,7 @@ class Azurlane_unpack:
         with open(path, mode) as f:
             f.write(contents)
 
-    def unpackTexture(self, filePath):
+    def unpackTexture(self, filePath:str):
         ret = []
         filePathPath, filePathFile = os.path.split(filePath)
         _, ifpainting = os.path.split(filePathPath)
@@ -141,7 +141,7 @@ class Azurlane_unpack:
                                 if sys.platform == "win32":
                                     cmd = ' '.join([ETCPACK_CMD, TMP_PKM_FNAME, TMP_PPM_FNAME])
                                 # print(cmd)
-                                ret = subprocess.check_output(cmd, shell=True)
+                                ret0 = subprocess.check_output(cmd, shell=True)
                                 img = Image.open(TMP_PPM_FNAME)
                                 # img.show()
                             else:

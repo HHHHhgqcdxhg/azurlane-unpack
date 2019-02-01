@@ -11,10 +11,16 @@ class AzurlaneUnpackControl:
 
     def run(self):
         if self.args.file:
-            azurlaneUnpack.unpackTexture(self.args.file)
+            ret = azurlaneUnpack.unpackTexture(self.args.file)
+            if ret:
+                oPath,_ = os.path.split(ret[0])
+                os.startfile(oPath)
         else:
+            self.args.works = int(self.args.works)
             allFiles = azurlaneUnpack.list_all_files(self.args.directorie)
             azurlaneUnpack.unpackTextureAllFutureP(allFiles,self.args.works)
+            outPath = os.path.join(CWD, "output",self.args.directorie)
+            os.startfile(outPath)
         self.clearEtcPackTmp()
 
     def clearEtcPackTmp(self):
