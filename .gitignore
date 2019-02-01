@@ -3,6 +3,52 @@ __pycache__/
 com.bilibili.azurlane/cache
 com.bilibili.azurlane/files
 output/com.bilibili.azurlane
+
+tmp.py
 tmp.ppm
 tmp.pkm
 *.pgm
+BlhxCueDecoder.exe
+format.dll
+vgmtutil.dll
+
+*.ipch
+*.db
+.suo
+*.opendb
+*.log
+*.tlog
+*.idb
+*.pdb
+*.vcxproj*
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# Executables
+*.out
+*.app
+tmp.py
