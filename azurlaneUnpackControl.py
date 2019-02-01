@@ -15,6 +15,7 @@ class AzurlaneUnpackControl:
         else:
             allFiles = azurlaneUnpack.list_all_files(self.args.directorie)
             azurlaneUnpack.unpackTextureAllFutureP(allFiles,self.args.works)
+        self.clearEtcPackTmp()
 
     def clearEtcPackTmp(self):
         for file in os.listdir(CWD):
@@ -34,5 +35,6 @@ if __name__ == '__main__':
     ass = sys.argv[1:]
     # if not ass:
     #     ass = ['-h']
-    a = AzurlaneUnpackControl(ass)
-    a.clearEtcPackTmp()
+    app = AzurlaneUnpackControl(ass)
+    app.clearEtcPackTmp()
+    # app.run()
