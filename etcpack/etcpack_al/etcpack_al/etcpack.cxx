@@ -9459,10 +9459,10 @@ void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int 
 {
 	int pid = GetCurrentProcessId();
 	printf("pid %d\n", pid);
-	char str[300];
-	char *tmpppm = new char;
+	char str[2047];
+	char tmpppm[2047];
 	sprintf(tmpppm, "%dtmp.ppm", pid);
-	char *alphaoutpgm = new char;
+	char alphaoutpgm[2047];
 	sprintf(alphaoutpgm, "%dalphaout.pgm", pid);
 
 	printf("tmpppm %s\n", tmpppm);

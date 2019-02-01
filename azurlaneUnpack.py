@@ -3,6 +3,7 @@ import os, sys
 from PIL import Image, ImageOps
 import subprocess
 import pickle
+from concurrent import futures
 
 import unitypack
 from unitypack.export import OBJMesh
@@ -10,6 +11,8 @@ from unitypack.engine.texture import TextureFormat
 
 from pieceTex import az_paint_restore
 from timeprint import timeWrite as print
+
+
 
 CWD = os.path.dirname(os.path.abspath(__file__))
 
@@ -31,7 +34,7 @@ TMP_PKM_FNAME_0 = 'tmp.pkm'
 TMP_PPM_FNAME = 'tmp.ppm'
 
 
-class Azure_unpack:
+class Azurlane_unpack:
     @classmethod
     def list_all_files(cls, rootdir):
         _files = []
@@ -83,6 +86,7 @@ class Azure_unpack:
         self.QUALITY = QUALITY
         # self.maxWorks = 30
         self.waitHanddle = []
+        self.handdled = 0
 
     def write_to_file(self, path, contents, mode="w"):
         dir, _ = os.path.split(path)
@@ -91,6 +95,7 @@ class Azure_unpack:
             f.write(contents)
 
     def unpackTexture(self, filePath):
+        ret = []
         filePathPath, filePathFile = os.path.split(filePath)
         _, ifpainting = os.path.split(filePathPath)
         # print(ifpainting,filePathFile[-3:])
@@ -105,7 +110,9 @@ class Azure_unpack:
             try:
                 bundle = unitypack.load(f)
             except NotImplementedError as e:
-                return
+                # self.handdled += 1
+                # print(f"{self.handdled}/{self.fileCount} handdled")
+                return ret
 
             # does
             # not start
@@ -133,7 +140,7 @@ class Azure_unpack:
                                 cmd = ' '.join([ETCPACK_CMD, TMP_PKM_FNAME, TMP_PPM_FNAME, ">/dev/null 2>&1"])
                                 if sys.platform == "win32":
                                     cmd = ' '.join([ETCPACK_CMD, TMP_PKM_FNAME, TMP_PPM_FNAME])
-                                print(cmd)
+                                # print(cmd)
                                 ret = subprocess.check_output(cmd, shell=True)
                                 img = Image.open(TMP_PPM_FNAME)
                                 # img.show()
@@ -157,6 +164,9 @@ class Azure_unpack:
                             img.save(savePathFile, "JPEG", quality=self.QUALITY, optimize=True, progressive=True)
                             if needPintu:
                                 pintuImgPath = savePathFile
+                            else:
+                                ret.append(savePathFile)
+                                print("    ->extract " + savePathFile)
                         else:
                             saveFileName = f"{d.name}.png"
                             savePathFile = os.path.join(savePath, saveFileName)
@@ -164,7 +174,9 @@ class Azure_unpack:
                             img.save(savePathFile, "PNG")
                             if needPintu:
                                 pintuImgPath = savePathFile
-                        continue
+                            else:
+                                ret.append(savePathFile)
+                                print("    ->extract " + savePathFile)
                     elif object.type == "Mesh":
                         d = object.read()
                         try:
@@ -182,9 +194,9 @@ class Azure_unpack:
                             pintuMeshPath = savePathFile
                 if needRemove:
                     try:
-                        pass
-                        # os.remove(TMP_PKM_FNAME)
-                        # os.remove(TMP_PPM_FNAME)
+                        # pass
+                        os.remove(TMP_PKM_FNAME)
+                        os.remove(TMP_PPM_FNAME)
                     except:
                         pass
 
@@ -192,6 +204,11 @@ class Azure_unpack:
                 pinPic = az_paint_restore(pintuMeshPath, pintuImgPath)
                 pintuImgSavePath = ".".join(pintuImgPath.split(".")[:-1]) + ".png"
                 pinPic.save(pintuImgSavePath, "PNG")
+                ret.append(pintuImgSavePath)
+                print("    ->extract " + pintuImgSavePath)
+        # self.handdled += 1
+        # print(f"{self.handdled}/{self.fileCount} handdled")
+        return ret
 
     def unpackTextureAll(self,directorie='com.bilibili.azurlane'):
         self.allFiles = self.list_all_files(directorie)
@@ -207,8 +224,35 @@ class Azure_unpack:
         print(errs)
         # with futures.ThreadPoolExecutor(self.maxWorks) as exe:
         #     res = exe.map(self.unpackTexture,self.allFiles)
+
+    def unpackTextureAllFutureP(self,files:list,maxWorkers=os.cpu_count()):
+        maxWorkers = maxWorkers if 0<maxWorkers <= os.cpu_count() else os.cpu_count()
+        handdled = 0
+        fileCount = files.__len__()
+        # futures.as_completed()
+        with futures.ProcessPoolExecutor(maxWorkers) as exe:
+            all_task = [exe.submit(self.unpackTexture, (file)) for file in files]
+            for future in futures.as_completed(all_task):
+                handdled += 1
+                print(f"{handdled}/{fileCount} handdled")
+
+
+            # exe.map(self.unpackTexture,files)
+
+    def unpackTextureAllFutureT(self,files:list,maxWorkers=10):
+        self.handdled = 0
+        self.fileCount = files.__len__()
+        with futures.ThreadPoolExecutor(maxWorkers) as exe:
+            exe.map(self.unpackTexture,files)
+
 if __name__ == '__main__':
-    azure_unpack = Azure_unpack()
+    azure_unpack = Azurlane_unpack()
     azureUnpack = azure_unpack
-    azure_unpack.unpackTextureAll()
+    # azure_unpack.unpackTextureAll()
     # azureUnpack.unpackTexture("com.bilibili.azurlane\\files\\AssetBundles\\cue\\bgm-battle-boss-tiancheng.b")
+    allFiles = azure_unpack.list_all_files("com.bilibili.azurlane\\files\\AssetBundles")
+    print("start")
+    azure_unpack.unpackTextureAllFutureP(allFiles)
+    # azure_unpack.unpackTextureAllFutureT(allFiles,20)
+    print("finish")
+    # print(os.cpu_count())
