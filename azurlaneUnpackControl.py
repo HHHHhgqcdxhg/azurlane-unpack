@@ -26,7 +26,7 @@ class AzurlaneUnpackControl:
         p = ArgumentParser()
         p.add_argument('-f', '--file', help="input a file path begin with com.bilibili.azurlane\n输入需要解包的文件目录,以com.bilibili.azurlane开头")
         p.add_argument('-d','--directorie',default="com.bilibili.azurlane\\files\\AssetBundles", help="input a directorie path begin with com.bilibili.azurlane, default com.bilibili.azurlane\\files\\AssetBundles \n输入需要解包的文件夹目录,以com.bilibili.azurlane开头, 默认为com.bilibili.azurlane\\files\\AssetBundles")
-        p.add_argument('-w','--works',default=os.cpu_count(), help="max works to handdle files, default full os.cpu_count()\n 处理解包的最大进程数,默认跑满CPU")
+        p.add_argument('-w','--works',default=os.cpu_count(), help="max works to handdle files, default os.cpu_count()\n 处理解包的最大进程数,默认跑满CPU")
         self.args = p.parse_args(args)
 
 if __name__ == '__main__':
