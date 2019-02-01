@@ -5,7 +5,7 @@
 ```
 python main -h
 ```
-## ~~借鉴~~照抄了以下代码
+## ~~&nbsp;借鉴&nbsp;~~照抄了以下代码
 - KiraFanWiki白井姐姐的assertsDownloader.py(私有repo)
 - [Goodjooy/AzurLane-PaintingExtract](https://github.com/Goodjooy/AzurLane-PaintingExtract)
 - [Ericsson/ETCPACK](https://github.com/Ericsson/ETCPACK)
