@@ -1,6 +1,6 @@
 # azurlane-unpack
 碧蓝航线图片拆包工具  
-一条命令将原文件或目录下的所有文件中的图片解包导出
+一条命令将 原文件 或 目录下的所有文件中的图片 解包导出
 notice: 不出意外应该只限windows使用
 ## 准备
 将下载好的游戏资源存到本项目根目录下的com.bilibili.azurlane中
@@ -23,7 +23,9 @@ UnityPack releases: [https://github.com/HearthSim/UnityPack/releases](https://gi
 -w 后面跟数字,指定解包并行的进程数,默认跑满CPU
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc45oxxjj30vc0a9jsa.jpg)
 - ```python main```
-直接执行将跑满CPU,解包com.bilibili.azurlane下所有文件
+直接执行将跑满CPU,解包com.bilibili.azurlane下所有文件  
+
+注意: 指定文件或文件夹时,使用com.bilibili.azurlane开头的路径,如上面两个示例  
 
 输出在本工具目录中的output文件夹
 

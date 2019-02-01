@@ -21,5 +21,5 @@
 2. 下载安装unityPack库
     点击链接[https://github.com/HearthSim/UnityPack/archive/0.9.0.zip](https://github.com/HearthSim/UnityPack/archive/0.9.0.zip)下载UnityPack,下载完成后解压,进入解压后的文件夹,在空白处按住shift右键在此处打开命令窗口,输入```python setup.py install```回车
 ## 使用
-回到本工具目录,在此处打开命令窗口,输入```python main -h```回车,能看到如下图所示的帮助,则代表你已经可以正常使用该工具了  
+回到本工具目录,在此处打开命令窗口,输入```python main -h```回车,能看到如下图所示的帮助,恭喜你已经可以正常使用该工具了,接下来可以前往[github.com/HHHHhgqcdxhg/azurlane-unpack#使用](https://github.com/HHHHhgqcdxhg/azurlane-unpack#%E4%BD%BF%E7%94%A8)查看具体使用  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrb5obj2sj30g20730sx.jpg)
