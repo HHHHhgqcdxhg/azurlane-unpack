@@ -18,9 +18,9 @@ UnityPack releases: [https://github.com/HearthSim/UnityPack/releases](https://gi
 - ```python main -f com.bilibili.azurlane\files\AssetBundles\painting\aidang_h_tex```  
 -f 后面跟文件位置,将只解包该文件,如输入上面命令将解包爱宕立绘
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc4q9ockj30if05c0sx.jpg)
-- ```python main -d com.bilibili.azurlane\files\AssetBundles\painting -w 4```
+- ```python main -d com.bilibili.azurlane\files\AssetBundles\painting -w 4```  
 -d 后面跟文件目录,将解包该目录下所有文件,如输入上面命令将解包全部立绘  
--w 后面跟数字,指定解包并行的进程数,默认跑满CPU
+-w 后面跟数字,指定解包并行的进程数,默认跑满CPU  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc45oxxjj30vc0a9jsa.jpg)
 - ```python main```
 直接执行将跑满CPU,解包com.bilibili.azurlane下所有文件  
@@ -30,7 +30,7 @@ UnityPack releases: [https://github.com/HearthSim/UnityPack/releases](https://gi
 输出在本工具目录中的output文件夹
 
 ## 性能
-实测使用Intel Core i7 2.6GHz 4核CPU的设备,使用最大进程数,解包全部文件大概2分15秒左右,只解包立绘(com.bilibili.azurlane\files\AssetBundles\painting)需要30秒左右
+实测使用Intel Core i7 2.6GHz 4核CPU的设备,使用最大进程数,解包全部文件大概2分15秒左右,解包全部立绘(com.bilibili.azurlane\files\AssetBundles\painting)需要30秒左右
 
 ## 参考
 本项目~~参考~~照抄了以下代码
