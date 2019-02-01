@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 import os, sys
 from PIL import Image, ImageOps
-import io
 import subprocess
 import pickle
-from argparse import ArgumentParser
 
 import unitypack
-from unitypack.asset import Asset
 from unitypack.export import OBJMesh
-from unitypack.utils import extract_audioclip_samples
 from unitypack.engine.texture import TextureFormat
 
 from pieceTex import az_paint_restore
@@ -19,11 +15,12 @@ CWD = os.path.dirname(os.path.abspath(__file__))
 
 QUALITY = 80
 
-ETCPACK_CMD = os.path.join(CWD, 'etcpack_linux')
-if sys.platform == "darwin":
-    ETCPACK_CMD = os.path.join(CWD, 'etcpack_macos')
-if sys.platform == "win32":
-    ETCPACK_CMD = os.path.join(CWD, 'etcpack.exe')
+# ETCPACK_DIR = os.path.join(CWD, '')
+# ETCPACK_CMD = os.path.join(ETCPACK_DIR, 'etcpack_linux')
+# if sys.platform == "darwin":
+#     ETCPACK_CMD = os.path.join(ETCPACK_DIR, 'etcpack_macos')
+# if sys.platform == "win32":
+ETCPACK_CMD = os.path.join(CWD, 'etcpack','etcpack_al','Debug','etcpack_al.exe')
 
 ETC_SERIES = [TextureFormat.ETC_RGB4, TextureFormat.ETC2_RGB, TextureFormat.ETC2_RGBA8,
               TextureFormat.ETC2_RGBA1, TextureFormat.EAC_R, TextureFormat.EAC_RG,
@@ -80,12 +77,12 @@ class Azure_unpack:
         if not (os.path.exists(path)):
             os.makedirs(path)
 
-    def __init__(self):
-        self.allFiles = self.list_all_files("com.bilibili.azurlane\\files\\AssetBundles")
+    def __init__(self,QUALITY=QUALITY,directorie=None):
         self.outPath = os.path.join(CWD, "output")
         self.makeDirs(self.outPath)
-        self.fileCount = self.allFiles.__len__()
+        self.QUALITY = QUALITY
         # self.maxWorks = 30
+        self.waitHanddle = []
 
     def write_to_file(self, path, contents, mode="w"):
         dir, _ = os.path.split(path)
@@ -104,11 +101,20 @@ class Azure_unpack:
         savePath = os.path.join(self.outPath, filePath)
         self.makeDirs(savePath)
         with open(filePath, "rb") as f:
-            bundle = unitypack.load(f)
+            # print(f.read(5))
+            try:
+                bundle = unitypack.load(f)
+            except NotImplementedError as e:
+                return
+
+            # does
+            # not start
+            # with b'Unity'
             for asset in bundle.assets:
                 needRemove = False
                 # print("%s: %s:: %i objects" % (bundle, asset, len(asset.objects)))
                 for id, object in asset.objects.items():
+                    # print(object.type)
                     # Let's say we only want TextAsset objects
                     # print(object.type)
                     if (object.type == "Texture2D"):
@@ -116,14 +122,18 @@ class Azure_unpack:
                         # print(d.name)
                         try:
                             if d.format in ETC_SERIES:
+                                # self.waitHanddle.append(d)
+                                # continue
                                 needRemove = True
-                                TMP_PKM_FNAME = os.path.join(savePath, TMP_PKM_FNAME_0 + str(id))
+                                TMP_PKM_FNAME = os.path.join(savePath, str(id) + TMP_PKM_FNAME_0)
+                                TMP_PPM_FNAME = os.path.join(savePath, str(id) + TMP_PPM_FNAME_0)
                                 bin_data = self.get_pkm_header(d.width, d.height, d.format) + d.image_data
                                 with open(TMP_PKM_FNAME, 'wb') as f:
                                     f.write(bin_data)
                                 cmd = ' '.join([ETCPACK_CMD, TMP_PKM_FNAME, TMP_PPM_FNAME, ">/dev/null 2>&1"])
                                 if sys.platform == "win32":
                                     cmd = ' '.join([ETCPACK_CMD, TMP_PKM_FNAME, TMP_PPM_FNAME])
+                                print(cmd)
                                 ret = subprocess.check_output(cmd, shell=True)
                                 img = Image.open(TMP_PPM_FNAME)
                                 # img.show()
@@ -144,7 +154,7 @@ class Azure_unpack:
                             savePathFile = os.path.join(savePath, saveFileName)
                             img = ImageOps.flip(img)
 
-                            img.save(savePathFile, "JPEG", quality=QUALITY, optimize=True, progressive=True)
+                            img.save(savePathFile, "JPEG", quality=self.QUALITY, optimize=True, progressive=True)
                             if needPintu:
                                 pintuImgPath = savePathFile
                         else:
@@ -172,16 +182,20 @@ class Azure_unpack:
                             pintuMeshPath = savePathFile
                 if needRemove:
                     try:
-                        os.remove(TMP_PKM_FNAME)
-                        os.remove(TMP_PPM_FNAME)
+                        pass
+                        # os.remove(TMP_PKM_FNAME)
+                        # os.remove(TMP_PPM_FNAME)
                     except:
                         pass
-        if needPintu:
-            pinPic = az_paint_restore(pintuMeshPath, pintuImgPath)
-            pintuImgSavePath = ".".join(pintuImgPath.split(".")[:-1]) + ".png"
-            pinPic.save(pintuImgSavePath, "PNG")
 
-    def unpackTextureAll(self):
+            if needPintu:
+                pinPic = az_paint_restore(pintuMeshPath, pintuImgPath)
+                pintuImgSavePath = ".".join(pintuImgPath.split(".")[:-1]) + ".png"
+                pinPic.save(pintuImgSavePath, "PNG")
+
+    def unpackTextureAll(self,directorie='com.bilibili.azurlane'):
+        self.allFiles = self.list_all_files(directorie)
+        self.fileCount = self.allFiles.__len__()
         handdled, errs = 0, []
         for f in self.allFiles:
             try:
@@ -193,7 +207,8 @@ class Azure_unpack:
         print(errs)
         # with futures.ThreadPoolExecutor(self.maxWorks) as exe:
         #     res = exe.map(self.unpackTexture,self.allFiles)
-azure_unpack = Azure_unpack()
-
 if __name__ == '__main__':
+    azure_unpack = Azure_unpack()
+    azureUnpack = azure_unpack
     azure_unpack.unpackTextureAll()
+    # azureUnpack.unpackTexture("com.bilibili.azurlane\\files\\AssetBundles\\cue\\bgm-battle-boss-tiancheng.b")
