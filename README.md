@@ -29,6 +29,10 @@ notice:
 注意: 指定文件或文件夹时,使用com.bilibili.azurlane开头的路径,如上面两个示例  
 
 输出在本工具目录中的output文件夹
+## 性能	
+实测使用Intel Core i7 2.6GHz 4核CPU的设备,使用最大进程数  
+解包全部文件大概2分20秒左右  
+解包全部立绘(com.bilibili.azurlane\files\AssetBundles\painting)需要25秒左右
 ## 参考
 本项目~~参考~~照抄了以下代码  
 - KiraFanWiki白井姐姐的assertsDownloader.py(私有repo)  
