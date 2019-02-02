@@ -13,9 +13,9 @@ int main(int argc, char * argv[])
 		cmd += " ";
 		cmd += argv[i];
 	}
-	//printf(cwd);
 	const char *cmd_c_str = cmd.c_str();
 	cout << cmd_c_str<<endl;
 	system(cmd_c_str);
+	//system("pause");
 	return 0;
 }

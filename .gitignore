@@ -5,6 +5,8 @@ com.bilibili.azurlane/files
 output/com.bilibili.azurlane
 al-unpack-control/al-unpack-control/al-unpack-control/Debug
 al-unpack-control/al-unpack-control/Debug
+al-unpack-control/al-unpack-control/Release
+al-unpack-control/al-unpack-control/al-unpack-control/Release
 tmp.py
 tmp.ppm
 tmp.pkm
@@ -20,7 +22,6 @@ vgmtutil.dll
 *.log
 *.tlog
 *.idb
-*.pdb
 *.vcxproj*
 
 # Prerequisites
@@ -30,7 +31,6 @@ vgmtutil.dll
 *.slo
 *.lo
 *.o
-*.obj
 
 # Precompiled Headers
 *.gch
@@ -55,3 +55,8 @@ vgmtutil.dll
 tmp.py
 al-unpack-control/al-unpack-control/Debug/al-unpack-control.exe
 al-unpack-control/al-unpack-control/al-unpack-control.sln
+etcpack/etcpack_al/etcpack_al/Debug/etcdec.obj
+etcpack/etcpack_al/etcpack_al/Debug/etcpack.obj
+etcpack/etcpack_al/etcpack_al/Debug/image.obj
+etcpack/etcpack_al/Debug/etcpack_al.pdb
+etcpack/etcpack_al/etcpack_al/Debug/vc141.pdb
