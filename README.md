@@ -29,3 +29,8 @@ notice:
 注意: 指定文件或文件夹时,使用com.bilibili.azurlane开头的路径,如上面两个示例  
 
 输出在本工具目录中的output文件夹
+## 参考
+本项目~~参考~~照抄了以下代码  
+- KiraFanWiki白井姐姐的assertsDownloader.py(私有repo)  
+- [Goodjooy/AzurLane-PaintingExtract](https://github.com/Goodjooy/AzurLane-PaintingExtract)  
+- [Ericsson/ETCPACK](https://github.com/Ericsson/ETCPACK)
