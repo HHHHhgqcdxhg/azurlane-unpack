@@ -23,7 +23,7 @@ notice:
 -w 后面跟数字,指定解包并行的进程数,默认跑满CPU  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzsgtj8ivmj3120087gmi.jpg)  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc45oxxjj30vc0a9jsa.jpg)	
-- ```./unpack```	
+- ```./unpack```  
 直接执行将跑满CPU,解包com.bilibili.azurlane下所有文件  
 
 注意: 指定文件或文件夹时,使用com.bilibili.azurlane开头的路径,如上面两个示例  
