@@ -18,7 +18,7 @@ notice:
 -f 后面跟文件位置,将只解包该文件,如输入上面命令将解包爱宕立绘  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzsgm85a8xj3115021mx6.jpg)  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc4q9ockj30if05c0sx.jpg)	
-- ```./unpack -d com.bilibili.azurlane\files\AssetBundles\painting -w 4```  	
+- ```./unpack -d com.bilibili.azurlane\files\AssetBundles\painting -w 4```  
 -d 后面跟文件目录,将解包该目录下所有文件,如输入上面命令将解包全部立绘  
 -w 后面跟数字,指定解包并行的进程数,默认跑满CPU  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzsgtj8ivmj3120087gmi.jpg)  
