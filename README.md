@@ -13,7 +13,7 @@ notice:
 3. 在本工具目录下打开命令行窗口: 进入本工具目录,在空白处,按住键盘上shift键右击,点击"在此处打开命令窗口"  
 之后输入```./unpack -h```回车,能看到如下图所示的帮助,则表示可以正常使用该工具了  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzsghtpoexj30gv08at8z.jpg)
-#### 使用
+### 使用
 - ```./unpack -f com.bilibili.azurlane\files\AssetBundles\painting\aidang_h_tex```  
 -f 后面跟文件位置,将只解包该文件,如输入上面命令将解包爱宕立绘  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzsgm85a8xj3115021mx6.jpg)  
