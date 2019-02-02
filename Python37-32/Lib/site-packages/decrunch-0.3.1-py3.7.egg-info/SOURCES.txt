@@ -1,0 +1,15 @@
+MANIFEST.in
+README.md
+crn_decomp.cpp
+crunch.h
+decrunch.cpp
+decrunch.pyx
+setup.cfg
+setup.py
+crunch/crn_decomp.h
+crunch/crnlib.h
+crunch/dds_defs.h
+decrunch.egg-info/PKG-INFO
+decrunch.egg-info/SOURCES.txt
+decrunch.egg-info/dependency_links.txt
+decrunch.egg-info/top_level.txt

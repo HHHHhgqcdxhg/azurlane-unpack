@@ -3,7 +3,8 @@ __pycache__/
 com.bilibili.azurlane/cache
 com.bilibili.azurlane/files
 output/com.bilibili.azurlane
-
+al-unpack-control/al-unpack-control/al-unpack-control/Debug
+al-unpack-control/al-unpack-control/Debug
 tmp.py
 tmp.ppm
 tmp.pkm
@@ -52,3 +53,5 @@ vgmtutil.dll
 *.out
 *.app
 tmp.py
+al-unpack-control/al-unpack-control/Debug/al-unpack-control.exe
+al-unpack-control/al-unpack-control/al-unpack-control.sln

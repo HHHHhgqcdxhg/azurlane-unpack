@@ -1,0 +1,4 @@
+#!C:\Users\MSI\AppData\Local\Programs\Python\Python37-32\python.exe
+# EASY-INSTALL-SCRIPT: 'unitypack==0.9.0','unity2yaml'
+__requires__ = 'unitypack==0.9.0'
+__import__('pkg_resources').run_script('unitypack==0.9.0', 'unity2yaml')

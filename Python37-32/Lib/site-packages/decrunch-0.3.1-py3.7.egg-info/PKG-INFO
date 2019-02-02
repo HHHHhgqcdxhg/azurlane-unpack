@@ -1,0 +1,22 @@
+Metadata-Version: 1.1
+Name: decrunch
+Version: 0.3.1
+Summary: Python wrapper around Crunch DXTc decompressor
+Home-page: https://github.com/HearthSim/decrunch/
+Author: Robert Nix
+Author-email: mischanix@gmail.com
+License: UNKNOWN
+Download-URL: https://github.com/HearthSim/decrunch/tarball/master
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: zlib/libpng License
+Classifier: Programming Language :: Cython
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Topic :: Multimedia :: Graphics
