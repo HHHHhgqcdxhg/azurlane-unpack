@@ -22,7 +22,9 @@ notice:
 -d 后面跟文件目录,将解包该目录下所有文件,如输入上面命令将解包全部立绘  
 -w 后面跟数字,指定解包并行的进程数,默认跑满CPU  
 ![](https://ws1.sinaimg.cn/large/006WuIpegy1fzsgtj8ivmj3120087gmi.jpg)  
-![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc45oxxjj30vc0a9jsa.jpg)	
+![](https://ws1.sinaimg.cn/large/006WuIpegy1fzrc45oxxjj30vc0a9jsa.jpg)
+- ```./unpack -f com.bilibili.azurlane\files\AssetBundles\painting\aidang_h_tex -q 90```  
+-q后面跟数字,指定图片质量,默认80.下面链接是不同图片质量的对比  	
 - ```./unpack```  
 直接执行将跑满CPU,解包com.bilibili.azurlane\files\AssetBundles下所有文件  
 
