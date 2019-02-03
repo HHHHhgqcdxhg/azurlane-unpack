@@ -9458,33 +9458,39 @@ void uncompressFile(char *srcfile, uint8* &img, uint8 *&alphaimg, int& active_wi
 void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int height)
 {
 	int pid = GetCurrentProcessId();
-	printf("pid %d\n", pid);
+	//printf("pid %d\n", pid);
 	char str[2047];
 	char tmpppm[2047];
 	sprintf(tmpppm, "%dtmp.ppm", pid);
 	char alphaoutpgm[2047];
 	sprintf(alphaoutpgm, "%dalphaout.pgm", pid);
-
-	printf("tmpppm %s\n", tmpppm);
-	printf("alphaoutpgm %s\n", alphaoutpgm);
+	char delTmpFile[2047];
+	//printf("tmpppm %s\n", tmpppm);
+	//printf("alphaoutpgm %s\n", alphaoutpgm);
 	//char *tmpppmC = const_cast<char*>(tmpppm);
 	if (format != ETC2PACKAGE_R_NO_MIPMAPS && format != ETC2PACKAGE_RG_NO_MIPMAPS)
 	{
 		fWritePPM(tmpppm, width, height, img, 8, false);
 		//fWritePPM(tmpppm,width,height,img,8,false);
 		printf("Saved file s \n\n", tmpppm);
+		sprintf(delTmpFile, "del %s\n", tmpppm);
 	}
 	else if (format == ETC2PACKAGE_RG_NO_MIPMAPS)
 	{
 		//fWritePPM(const_cast<char*>("tmp.ppm"),width,height,img,16,false);
 		fWritePPM(tmpppm, width, height, img, 16, false);
+		sprintf(delTmpFile, "del %s\n", tmpppm);
 	}
-	if (format == ETC2PACKAGE_RGBA_NO_MIPMAPS || format == ETC2PACKAGE_RGBA1_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA1_NO_MIPMAPS)
+	if (format == ETC2PACKAGE_RGBA_NO_MIPMAPS || format == ETC2PACKAGE_RGBA1_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA_NO_MIPMAPS || format == ETC2PACKAGE_sRGBA1_NO_MIPMAPS) {
 		//fWritePGM(const_cast<char*>("alphaout.pgm"),width,height,alphaimg,false,8);
 		fWritePGM(alphaoutpgm, width, height, alphaimg, false, 8);
-	if (format == ETC2PACKAGE_R_NO_MIPMAPS)
+		sprintf(delTmpFile, "del %s\n", alphaoutpgm);
+	}
+	if (format == ETC2PACKAGE_R_NO_MIPMAPS) {
 		//fWritePGM(const_cast<char*>("alphaout.pgm"),width,height,alphaimg,false,16);
 		fWritePGM(alphaoutpgm, width, height, alphaimg, false, 16);
+		sprintf(delTmpFile, "del %s\n", alphaoutpgm);
+	}
 
 	// Delete destination file if it exists
 	if (fileExist(dstfile))
@@ -9543,6 +9549,8 @@ void writeOutputFile(char *dstfile, uint8* img, uint8* alphaimg, int width, int 
 	// Execute system call
 	system(str);
 
+	system(delTmpFile);
+	
 	free(img);
 	if (alphaimg != NULL)
 		free(alphaimg);
